@@ -30,7 +30,7 @@ Add to your `shard.yml`:
 dependencies:
   aws-dynamodb:
     github: MatheusBasso99/aws-dynamodb
-    version: ~> 0.1.0
+    version: ~> 0.1.1 # check for the latest version
 ```
 
 Run:
@@ -42,7 +42,7 @@ shards install
 ## Quick Start
 
 ```crystal
-require "aws-dynamodb"
+require "aws-dynamodb" # In Lucky -> #src/shards.cr 
 
 client = Aws::DynamoDB::Client.new(
   region: "us-east-1",
