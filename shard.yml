@@ -1,0 +1,22 @@
+name: aws-dynamodb
+version: 0.1.1
+
+authors:
+  - Vitalii Elenhaupt <velenhaupt@gmail.com>
+
+crystal: ">= 1.16.0"
+
+license: MIT
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.6.0
+  webmock:
+    github: manastech/webmock.cr
+    version: ~> 0.14.0
+
+dependencies:
+  awscr-signer:
+    github: taylorfinnell/awscr-signer
+    version: ~> 0.9.0

@@ -1,0 +1,14 @@
+/docs/
+/lib/
+/bin/
+/.shards/
+/coverage/
+*.dwarf
+start_server
+*.dwarf
+*.local.cr
+.env
+/tmp
+/draws
+.DS_Store
+shard.lock
