@@ -1,3 +1,6 @@
+require "habitat"
+require "../../src/aws-dynamodb"
+
 class DynamoDBConfig
   Habitat.create do
     setting region : String = ENV["AWS_REGION"]? || "us-east-1"
