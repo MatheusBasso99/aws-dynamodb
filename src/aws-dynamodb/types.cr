@@ -35,6 +35,8 @@ module Aws::DynamoDB::Types
     @[JSON::Field(key: "SS")]
     property ss : Array(String)?
 
+    # Flat dispatch over the ten DynamoDB attribute-value keys.
+    # ameba:disable Metrics/CyclomaticComplexity
     def [](key : String)
       case key
       when "B"    then b

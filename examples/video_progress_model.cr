@@ -9,7 +9,7 @@ class VideoProgress
   property watch_position : Float64
   property duration : Float64
   property percentage : Float64
-  property completed : Bool
+  property? completed : Bool
   property last_watched_at : Time
   property created_at : Time
   property updated_at : Time
@@ -29,15 +29,23 @@ class VideoProgress
 
   def self.from_dynamodb(item : Hash(String, Aws::DynamoDB::Types::AttributeValue))
     new(
-      user_id: item["user_id"].s.not_nil!,
-      video_id: item["video_id"].s.not_nil!,
-      watch_position: item["watch_position"].n.not_nil!,
-      duration: item["duration"].n.not_nil!,
+      user_id: string_at(item, "user_id"),
+      video_id: string_at(item, "video_id"),
+      watch_position: number_at(item, "watch_position"),
+      duration: number_at(item, "duration"),
       completed: item["completed"]?.try(&.bool) || false,
-      last_watched_at: Time.parse_iso8601(item["last_watched_at"].s.not_nil!),
-      created_at: Time.parse_iso8601(item["created_at"].s.not_nil!),
-      updated_at: Time.parse_iso8601(item["updated_at"].s.not_nil!)
+      last_watched_at: Time.parse_iso8601(string_at(item, "last_watched_at")),
+      created_at: Time.parse_iso8601(string_at(item, "created_at")),
+      updated_at: Time.parse_iso8601(string_at(item, "updated_at"))
     )
+  end
+
+  private def self.string_at(item : Hash(String, Aws::DynamoDB::Types::AttributeValue), key : String) : String
+    item[key]?.try(&.s) || raise ArgumentError.new("missing string attribute #{key.inspect}")
+  end
+
+  private def self.number_at(item : Hash(String, Aws::DynamoDB::Types::AttributeValue), key : String) : Float64
+    item[key]?.try(&.n) || raise ArgumentError.new("missing number attribute #{key.inspect}")
   end
 
   def to_dynamodb_item

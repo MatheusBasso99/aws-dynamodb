@@ -15,7 +15,7 @@ describe VideoProgress do
       progress.video_id.should eq("video_456")
       progress.watch_position.should eq(120.5)
       progress.duration.should eq(300.0)
-      progress.completed.should be_false
+      progress.completed?.should be_false
     end
 
     it "calculates percentage correctly" do
@@ -39,7 +39,7 @@ describe VideoProgress do
       )
 
       progress.percentage.should eq(95.0)
-      progress.completed.should be_true
+      progress.completed?.should be_true
     end
 
     it "handles zero duration" do
@@ -94,7 +94,7 @@ describe VideoProgress do
       progress.video_id.should eq("video_456")
       progress.watch_position.should eq(120.5)
       progress.duration.should eq(300.0)
-      progress.completed.should be_false
+      progress.completed?.should be_false
     end
   end
 end
