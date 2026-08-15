@@ -39,6 +39,8 @@ module Aws::DynamoDB
       Types::PutItemOutput.from_json(response.body)
     end
 
+    # Named after the DynamoDB `GetItem` API operation, not a getter.
+    # ameba:disable Naming/AccessorMethodName
     def get_item(**params)
       response = http.post("/", body: params.to_json, op: "GetItem")
       Types::GetItemOutput.from_json(response.body)

@@ -24,10 +24,8 @@ module Aws::DynamoDB::Types
 
     it "serializes list" do
       l = [{"S": "Cookies"}, {"S": "Coffee"}, {"N": "3.14159"}]
-      res = AttributeValue.from_json({L: l}.to_json).l
-      res.should_not be_nil
+      res = AttributeValue.from_json({L: l}.to_json).l.should_not be_nil
 
-      res = res.not_nil!
       res.size.should eq 3
       res[0].s.should eq "Cookies"
       res[1].s.should eq "Coffee"
@@ -36,10 +34,8 @@ module Aws::DynamoDB::Types
 
     it "serializes map" do
       m = {"Name": {"S": "Joe"}, "Age": {"N": "35"}}
-      res = AttributeValue.from_json({M: m}.to_json).m
-      res.should_not be_nil
+      res = AttributeValue.from_json({M: m}.to_json).m.should_not be_nil
 
-      res = res.not_nil!
       res["Name"].s.should eq "Joe"
       res["Age"].n.should eq 35
     end

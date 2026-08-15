@@ -57,7 +57,8 @@ class VideoProgressRepository
       ReturnValues: "ALL_NEW"
     )
 
-    find(user_id, video_id).not_nil!
+    find(user_id, video_id) ||
+      raise "video progress for #{user_id.inspect}/#{video_id.inspect} disappeared after update"
   end
 
   def find_all_by_user(user_id : String, limit : Int32 = 50) : Array(VideoProgress)

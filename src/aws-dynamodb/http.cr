@@ -37,7 +37,9 @@ module Aws::DynamoDB
     end
 
     private def endpoint : URI
-      return URI.parse(@custom_endpoint.not_nil!) if @custom_endpoint
+      if custom_endpoint = @custom_endpoint
+        return URI.parse(custom_endpoint)
+      end
       URI.parse("https://#{@service_name}.#{@region}.amazonaws.com")
     end
   end

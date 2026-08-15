@@ -21,7 +21,7 @@ class Api::VideoProgress::Update < ApiAction
         watch_position:  progress.watch_position,
         duration:        progress.duration,
         percentage:      progress.percentage,
-        completed:       progress.completed,
+        completed:       progress.completed?,
         last_watched_at: progress.last_watched_at.to_rfc3339,
       },
     })

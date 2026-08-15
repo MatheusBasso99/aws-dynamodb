@@ -1,0 +1,5 @@
+Lint/UselessAssign:
+  # `Habitat.create`'s `setting name : Type = default` DSL parses as a plain
+  # assignment, so every setting reads as an unused local variable.
+  Excluded:
+    - examples/lucky_integration/dynamodb_config.cr

@@ -52,11 +52,10 @@ describe VideoProgressRepository do
         body: response.to_json
       )
 
-      progress = repo.find("user_123", "video_456")
-      progress.should_not be_nil
-      progress.not_nil!.user_id.should eq("user_123")
-      progress.not_nil!.video_id.should eq("video_456")
-      progress.not_nil!.watch_position.should eq(120.5)
+      progress = repo.find("user_123", "video_456").should_not be_nil
+      progress.user_id.should eq("user_123")
+      progress.video_id.should eq("video_456")
+      progress.watch_position.should eq(120.5)
     end
 
     it "returns nil when not found" do
@@ -129,7 +128,7 @@ describe VideoProgressRepository do
       progress = repo.update_position("user_123", "video_456", 150.0, 300.0)
       progress.watch_position.should eq(150.0)
       progress.percentage.should eq(50.0)
-      progress.completed.should be_false
+      progress.completed?.should be_false
     end
 
     it "marks as completed when >= 95%" do
@@ -166,7 +165,7 @@ describe VideoProgressRepository do
 
       progress = repo.update_position("user_123", "video_456", 290.0, 300.0)
       progress.percentage.should eq(96.67)
-      progress.completed.should be_true
+      progress.completed?.should be_true
     end
   end
 
@@ -261,7 +260,7 @@ describe VideoProgressRepository do
 
       videos = repo.find_incomplete_by_user("user_123")
       videos.size.should eq(1)
-      videos[0].completed.should be_false
+      videos[0].completed?.should be_false
     end
   end
 
