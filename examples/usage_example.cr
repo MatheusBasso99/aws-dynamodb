@@ -14,7 +14,7 @@ repo = VideoProgressRepository.new(client)
 user_id = "user_123"
 video_id = "video_456"
 
-puts "=== Criando/Atualizando progresso de vídeo ==="
+puts "=== Creating/updating video progress ==="
 progress = repo.update_position(
   user_id: user_id,
   video_id: video_id,
@@ -22,52 +22,52 @@ progress = repo.update_position(
   duration: 300.0
 )
 
-puts "Usuário: #{progress.user_id}"
-puts "Vídeo: #{progress.video_id}"
-puts "Posição: #{progress.watch_position}s"
-puts "Duração: #{progress.duration}s"
-puts "Percentual: #{progress.percentage}%"
-puts "Completo: #{progress.completed?}"
-puts "Última visualização: #{progress.last_watched_at}"
+puts "User: #{progress.user_id}"
+puts "Video: #{progress.video_id}"
+puts "Position: #{progress.watch_position}s"
+puts "Duration: #{progress.duration}s"
+puts "Percentage: #{progress.percentage}%"
+puts "Completed: #{progress.completed?}"
+puts "Last watched: #{progress.last_watched_at}"
 
-puts "\n=== Buscando progresso específico ==="
+puts "\n=== Fetching a single progress entry ==="
 found = repo.find(user_id, video_id)
 if found
-  puts "Encontrado! Posição: #{found.watch_position}s (#{found.percentage}%)"
+  puts "Found! Position: #{found.watch_position}s (#{found.percentage}%)"
 else
-  puts "Não encontrado"
+  puts "Not found"
 end
 
-puts "\n=== Atualizando para próximo da conclusão ==="
+puts "\n=== Updating to near completion ==="
 progress = repo.update_position(
   user_id: user_id,
   video_id: video_id,
   position: 290.0,
   duration: 300.0
 )
-puts "Nova posição: #{progress.watch_position}s (#{progress.percentage}%)"
-puts "Marcado como completo: #{progress.completed?}"
+puts "New position: #{progress.watch_position}s (#{progress.percentage}%)"
+puts "Marked as completed: #{progress.completed?}"
 
-puts "\n=== Buscando todos os vídeos do usuário ==="
+puts "\n=== Fetching every video for the user ==="
 repo.update_position(user_id, "video_789", 50.0, 200.0)
 repo.update_position(user_id, "video_101", 180.0, 200.0)
 
 all_progress = repo.find_all_by_user(user_id)
-puts "Total de vídeos: #{all_progress.size}"
+puts "Total videos: #{all_progress.size}"
 all_progress.each do |item|
-  puts "  - #{item.video_id}: #{item.percentage}% (completo: #{item.completed?})"
+  puts "  - #{item.video_id}: #{item.percentage}% (completed: #{item.completed?})"
 end
 
-puts "\n=== Buscando apenas vídeos incompletos ==="
+puts "\n=== Fetching incomplete videos only ==="
 incomplete = repo.find_incomplete_by_user(user_id)
-puts "Vídeos incompletos: #{incomplete.size}"
+puts "Incomplete videos: #{incomplete.size}"
 incomplete.each do |item|
   puts "  - #{item.video_id}: #{item.percentage}%"
 end
 
-puts "\n=== Deletando um progresso ==="
+puts "\n=== Deleting a progress entry ==="
 repo.delete(user_id, "video_789")
-puts "Deletado video_789"
+puts "Deleted video_789"
 
 all_progress = repo.find_all_by_user(user_id)
-puts "Total após deleção: #{all_progress.size}"
+puts "Total after deletion: #{all_progress.size}"

@@ -2,19 +2,19 @@ require "../src/aws-dynamodb"
 
 class DynamoDBSetup
   def self.run
-    puts "🚀 Configurando DynamoDB..."
+    puts "🚀 Setting up DynamoDB..."
 
     client = create_client
 
     if table_exists?(client, "video_progress")
-      puts "✅ Tabela 'video_progress' já existe"
+      puts "✅ Table 'video_progress' already exists"
     else
-      puts "📦 Criando tabela 'video_progress'..."
+      puts "📦 Creating table 'video_progress'..."
       create_video_progress_table(client)
-      puts "✅ Tabela criada com sucesso!"
+      puts "✅ Table created successfully!"
     end
 
-    puts "\n📊 Informações das tabelas:"
+    puts "\n📊 Tables:"
     list_tables(client)
   end
 

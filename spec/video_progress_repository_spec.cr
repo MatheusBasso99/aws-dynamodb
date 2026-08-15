@@ -269,7 +269,7 @@ describe VideoProgressRepository do
       client = new_client
       repo = VideoProgressRepository.new(client)
 
-      # CORREÇÃO: Usar "{}" em vez de [""]
+      # FIX: use "{}" instead of [""]
       WebMock.stub(:post, DEFAULT_ENDPOINT).to_return(
         status: 200,
         body: "{}"
